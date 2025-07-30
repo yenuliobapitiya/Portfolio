@@ -15,6 +15,17 @@
         scroll-behavior: smooth;
       }
     </style>
+
+    <!-- Add EmailJS script in <head> before your custom script -->
+    <script
+      type="text/javascript"
+      src="https://cdn.emailjs.com/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("EZA4KabBbey4_UQQa"); // 🔁 Replace with your actual EmailJS public key
+      })();
+    </script>
   </head>
   <body>
     <nav>
@@ -241,7 +252,7 @@
             <div class="project-info">
               <h3>Netflix Clone</h3>
               <p>A responsive clone built using HTML, CSS, and JavaScript.</p>
-            </div> 
+            </div>
           </a>
 
           <a
@@ -252,7 +263,10 @@
             <img src="images/project3.png" alt="Project 3" />
             <div class="project-info">
               <h3>Event Ticketing System</h3>
-              <p>A Real-Time Event Ticketing System using Java, based on the Producer-Consumer pattern and OOP principles. </p>
+              <p>
+                A Real-Time Event Ticketing System using Java, based on the
+                Producer-Consumer pattern and OOP principles.
+              </p>
             </div>
           </a>
 
@@ -264,9 +278,12 @@
             <img src="images/project4.jpeg" alt="Project 4" />
             <div class="project-info">
               <h3>Weather App</h3>
-              <p>A simple and responsive Weather App built using HTML, CSS, and JavaScript. 
-                It fetches real-time weather data from a public API and displays current conditions
-                 like temperature, humidity, wind speed, and more based on user input.</p>
+              <p>
+                A simple and responsive Weather App built using HTML, CSS, and
+                JavaScript. It fetches real-time weather data from a public API
+                and displays current conditions like temperature, humidity, wind
+                speed, and more based on user input.
+              </p>
             </div>
           </a>
 
@@ -278,13 +295,16 @@
             <img src="images/project5.jpg" alt="Project 5" />
             <div class="project-info">
               <h3>Hotel Management System</h3>
-              <p>A desktop application built using Java and Swing to manage hotel operations such as staff roles,
-                 guest information, and room details. The system follows object-oriented programming principles and
-                  features a graphical user interface for easy interaction.
-                </p>
+              <p>
+                A desktop application built using Java and Swing to manage hotel
+                operations such as staff roles, guest information, and room
+                details. The system follows object-oriented programming
+                principles and features a graphical user interface for easy
+                interaction.
+              </p>
             </div>
           </a>
-          
+
           <a
             href="https://yenuliobapitiya.github.io/QR-Code-Generator/"
             target="_blank"
@@ -293,13 +313,14 @@
             <img src="images/projects6.png" alt="Project 6" />
             <div class="project-info">
               <h3>QR Code Generator</h3>
-              <p>A simple and modern QR Code Generator built with HTML, CSS, and JavaScript.
-                Generate customizable QR codes with options for color, size, and easy download
-                all in a clean, responsive interface. Powered by the lightweight qrcodejs library.
-                </p>
+              <p>
+                A simple and modern QR Code Generator built with HTML, CSS, and
+                JavaScript. Generate customizable QR codes with options for
+                color, size, and easy download all in a clean, responsive
+                interface. Powered by the lightweight qrcodejs library.
+              </p>
             </div>
           </a>
-
         </div>
       </div>
     </section>
@@ -314,10 +335,25 @@
 
         <form id="contactForm" class="contact-form">
           <div class="input-group">
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email" required />
+            <input
+              type="text"
+              name="from_name"
+              placeholder="Your Name"
+              required
+            />
+            <input
+              type="email"
+              name="from_email"
+              placeholder="Your Email"
+              required
+            />
           </div>
-          <textarea rows="5" placeholder="Your Message" required></textarea>
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Your Message"
+            required
+          ></textarea>
           <button type="submit">Send Message</button>
         </form>
 
@@ -345,20 +381,23 @@
         const form = document.getElementById("contactForm");
         const messageSent = document.getElementById("messageSent");
 
-        if (form && messageSent) {
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
 
-            // Show message
-            messageSent.classList.add("show");
-            form.reset();
+          emailjs.sendForm("service_8om5wk5", "template_vqdnqqb", this).then(
+            function () {
+              messageSent.classList.add("show");
+              form.reset();
 
-            // Hide message after 4 seconds
-            setTimeout(() => {
-              messageSent.classList.remove("show");
-            }, 4000);
-          });
-        }
+              setTimeout(() => {
+                messageSent.classList.remove("show");
+              }, 4000);
+            },
+            function (error) {
+              alert("❌ Failed to send message: " + error.text);
+            }
+          );
+        });
       });
     </script>
   </body>
